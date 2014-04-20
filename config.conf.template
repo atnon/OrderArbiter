@@ -1,0 +1,4 @@
+[farnell]
+APIKey = [Your API key here, look at http://partner.element14.com/docs/Product_Search_API_REST__Description]
+APIStoreUrl = se.farnell.com
+APIRateLimit = 2
