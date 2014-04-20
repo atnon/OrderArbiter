@@ -3,14 +3,8 @@ import urllib2
 import json
 
 class Farnell(object):
-    '''
-    classdocs
-    '''
-
     def __init__(self, config, log=None):
-        '''
-        Constructor
-        '''
+        
         self.APIKey = config.get("farnell", "APIKey")
         self.APIStoreUrl = config.get("farnell", "APIStoreUrl")
         self.APIUrl =   "https://api.element14.com/catalog/products?" \
@@ -21,10 +15,10 @@ class Farnell(object):
                         {"APIStoreUrl" : self.APIStoreUrl, "APIKey" : self.APIKey }
         self.APIRateLimit = config.get("farnell", "APIRateLimit")
         
-        self.__JobList = []
+        self.__JobList = set()
     
     def QueueSku(self, sku):
-        self.__JobList.append(str(sku))
+        self.__JobList.add(str(sku))
         
     def FetchSkus(self):
         Results = {}
@@ -50,5 +44,3 @@ if __name__ == "__main__":
     FarnellHandler.QueueSku(1379812)
     FarnellHandler.QueueSku("1652316RL")
     print repr(FarnellHandler.FetchSkus())
-
-    #print "".join([FarnellHandler.APIUrl, "&term=id:", str(9779272)])
