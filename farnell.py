@@ -89,8 +89,9 @@ class Farnell(object):
             # TODO : Farnell sends a 500 Internal Server Error, 
             # which trips the HTTPError exception.
             # We must bypass this somehow and still get the data.
-            if e.code == 500:
-                pass
+            if e.code == 503:
+                time.sleep(1.0 / float(self.APIRateLimit)) # Wait a bit and...
+                return self.FetchSku(Sku) # ...try again, for great glory!
             else:
                 print "HTTPError: %s, triggered on URL %s" % (e, SkuUrl)
         except urllib2.URLError, e:
